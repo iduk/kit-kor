@@ -1,133 +1,265 @@
-import { Home, LayoutDashboard, Settings, Users, BarChart3, Search, Bell, User } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import React, { useState } from "react"
+import { Link, useLocation } from "react-router-dom"
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarTrigger,
-} from '@/components/ui/sidebar'
+  LayoutDashboard,
+  ChevronDown,
+  ChevronRight,
+  User,
+  X,
+  Menu,
+  Search,
+  Bell,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/components/ui/breadcrumb"
+import { routes } from "@/routes"
 
-// 메뉴 아이템들
-const items = [
-  {
-    title: '홈',
-    url: '#',
-    icon: Home,
-  },
-  {
-    title: '대시보드',
-    url: '#',
-    icon: LayoutDashboard,
-  },
-  {
-    title: '사용자',
-    url: '#',
-    icon: Users,
-  },
-  {
-    title: '분석',
-    url: '#',
-    icon: BarChart3,
-  },
-  {
-    title: '설정',
-    url: '#',
-    icon: Settings,
-  },
-]
-
-function AppSidebar() {
-  return (
-    <Sidebar>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <LayoutDashboard className="size-4" />
-              </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">Dashboard</span>
-                <span className="truncate text-xs">관리 시스템</span>
-              </div>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>메뉴</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map(item => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <User />
-              <span>사용자 프로필</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
-    </Sidebar>
-  )
-}
+const menuItems = routes.filter(route => route.label && route.icon)
 
 interface DashboardLayoutProps {
   children?: React.ReactNode
 }
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({})
+  const location = useLocation()
+
+  const handleMenuToggle = (label: string) => {
+    setOpenMenus(prev => ({ ...prev, [label]: !prev[label] }))
+  }
+
   return (
-    <div className="flex h-screen w-full">
-      <AppSidebar />
-      <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Header */}
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <div className="flex flex-1 items-center gap-2">
-            <div className="flex-1">
-              <div className="relative max-w-md">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input type="search" placeholder="검색..." className="pl-8" aria-label="검색" />
+    <div className="flex flex-row w-screen h-screen bg-background">
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+          onKeyDown={e => {
+            if (e.key === "Escape") {
+              setSidebarOpen(false)
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="사이드바 닫기"
+        >
+          <div className="fixed inset-0 bg-black/50" />
+        </div>
+      )}
+
+      {/* Sidebar: 데스크탑 + 모바일 */}
+      {/* 데스크탑 */}
+      <aside className="hidden lg:block fixed inset-y-0 left-0 z-30 w-64 h-screen bg-card border-r">
+        <div className="flex h-full flex-col">
+          {/* ...existing code... */}
+          <div className="flex h-16 items-center justify-between px-4 border-b">
+            <div className="flex items-center space-x-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                <LayoutDashboard className="h-4 w-4 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-semibold text-foreground">Dashboard</span>
+            </div>
+          </div>
+          {/* ...navigation/footer... */}
+          <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
+            {menuItems.map((item, index) => {
+              const hasChildren = !!item.children
+              const isOpen = openMenus[item.label]
+              return (
+                <div key={index}>
+                  <Link
+                    to={hasChildren ? "#" : item.path}
+                    onClick={
+                      hasChildren ? () => handleMenuToggle(item.label) : () => setSidebarOpen(false)
+                    }
+                    className={`
+                      flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors w-full text-left no-underline
+                      ${
+                        location.pathname === item.path
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      }
+                    `}
+                    aria-expanded={hasChildren ? isOpen : undefined}
+                  >
+                    <item.icon className="h-5 w-5" />
+                    <span>{item.label}</span>
+                    {hasChildren && (
+                      <span className="ml-auto">
+                        {isOpen ? (
+                          <ChevronDown className="h-4 w-4" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4" />
+                        )}
+                      </span>
+                    )}
+                  </Link>
+                  {/* 하위 메뉴 */}
+                  {hasChildren && isOpen && (
+                    <ul className="ml-8 mt-1 space-y-1">
+                      {item.children?.map((child: { path: string; label: string }) => (
+                        <li key={child.label}>
+                          <Link
+                            to={child.path}
+                            className="block rounded px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors no-underline"
+                          >
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )
+            })}
+          </nav>
+          <div className="border-t p-4">
+            <div className="flex items-center space-x-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent">
+                <User className="h-4 w-4 text-accent-foreground" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">사용자</p>
+                <p className="text-xs text-muted-foreground">user@example.com</p>
               </div>
             </div>
-            <Button variant="outline" size="icon">
-              <Bell className="h-4 w-4" />
+          </div>
+        </div>
+      </aside>
+
+      {/* 모바일: 오버레이 + 사이드바 */}
+      {sidebarOpen && (
+        <aside className="fixed inset-y-0 left-0 z-50 w-64 h-full bg-card border-r shadow-lg lg:hidden animate-in slide-in-from-left duration-200">
+          <div className="flex h-full flex-col">
+            <div className="flex h-16 items-center justify-between px-4 border-b">
+              <div className="flex items-center space-x-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                  <LayoutDashboard className="h-4 w-4 text-primary-foreground" />
+                </div>
+                <span className="text-lg font-semibold text-foreground">Dashboard</span>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(false)}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
+              {menuItems.map((item, index) => {
+                const hasChildren = !!item.children
+                const isOpen = openMenus[item.label]
+                return (
+                  <div key={item.label}>
+                    <button
+                      type={hasChildren ? "button" : undefined}
+                      onClick={
+                        hasChildren
+                          ? () => handleMenuToggle(item.label)
+                          : () => setSidebarOpen(false)
+                      }
+                      className={`
+                        flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors w-full text-left
+                        ${
+                          index === 1
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        }
+                      `}
+                      aria-expanded={hasChildren ? isOpen : undefined}
+                    >
+                      <item.icon className="h-5 w-5" />
+                      <span>{item.label}</span>
+                      {hasChildren && (
+                        <span className="ml-auto">
+                          {isOpen ? (
+                            <ChevronDown className="h-4 w-4" />
+                          ) : (
+                            <ChevronRight className="h-4 w-4" />
+                          )}
+                        </span>
+                      )}
+                    </button>
+                    {/* 하위 메뉴 */}
+                    {hasChildren && isOpen && (
+                      <ul className="ml-8 mt-1 space-y-1">
+                        {item.children.map((child: { path: string; label: string }) => (
+                          <li key={child.label}>
+                            <a
+                              href={child.path}
+                              className="block rounded px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                              {child.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )
+              })}
+            </nav>
+            <div className="border-t p-4">
+              <div className="flex items-center space-x-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent">
+                  <User className="h-4 w-4 text-accent-foreground" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground">사용자</p>
+                  <p className="text-xs text-muted-foreground">user@example.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      )}
+
+      {/* Main content */}
+      <div className="flex-1 w-full min-h-screen lg:ml-64 bg-background">
+        {/* Top bar */}
+        <header className="flex h-16 items-center border-b bg-card px-4">
+          <div className="flex w-full items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="lg:hidden"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
             </Button>
+
+            <div className="flex flex-1 items-center gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="검색..."
+                  className="w-full pl-9"
+                  aria-label="검색"
+                />
+              </div>
+              <Button variant="outline" size="sm" className="shrink-0">
+                <Bell className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-auto p-4">
+        {/* Page content */}
+        <main className="flex-1 overflow-y-auto p-6">
+          {/* Breadcrumb */}
+          <BreadcrumbList>
+            <BreadcrumbItem>HOME</BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink>Dashboard</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+
           {children || (
-            <div className="space-y-4">
-              <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
-                <h1 className="text-3xl font-bold">대시보드</h1>
-                <p className="text-muted-foreground">관리 시스템에 오신 것을 환영합니다.</p>
+            <div className="space-y-6">
+              <div className="rounded-lg border bg-card p-6">
+                <h1 className="text-3xl font-bold text-foreground">대시보드</h1>
+                <p className="mt-2 text-muted-foreground">관리 시스템에 오신 것을 환영합니다.</p>
               </div>
             </div>
           )}
@@ -136,3 +268,5 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     </div>
   )
 }
+
+export default DashboardLayout

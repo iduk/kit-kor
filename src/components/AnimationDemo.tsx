@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
+import { useState } from "react"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion"
 import {
   Dialog,
   DialogContent,
@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog'
-import { Button } from './ui/button'
+} from "./ui/dialog"
+import { Button } from "./ui/button"
 
 export function AnimationDemo() {
   const [isVisible, setIsVisible] = useState(false)
@@ -81,7 +81,7 @@ export function AnimationDemo() {
         <h2 className="text-2xl font-semibold mb-4">3. 커스텀 Enter/Exit 애니메이션</h2>
         <div className="space-y-4">
           <Button onClick={() => setIsVisible(!isVisible)} variant="outline">
-            {isVisible ? '숨기기' : '보이기'} (slide + fade)
+            {isVisible ? "숨기기" : "보이기"} (slide + fade)
           </Button>
 
           {isVisible && (
@@ -202,7 +202,7 @@ export function AnimationDemo() {
           <Button
             color="primary"
             className="animate-in fade-in-0 duration-300 hover:scale-105"
-            onClick={() => alert('버튼 클릭!')}
+            onClick={() => alert("버튼 클릭!")}
           >
             클릭해보세요!
           </Button>
@@ -211,7 +211,7 @@ export function AnimationDemo() {
           <Button
             color="secondary"
             className="animate-in fade-in-0 duration-300 hover:scale-105"
-            onClick={() => alert('버튼 클릭!')}
+            onClick={() => alert("버튼 클릭!")}
           >
             클릭해보세요!
           </Button>
