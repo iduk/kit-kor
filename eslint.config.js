@@ -1,11 +1,13 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import react from 'eslint-plugin-react';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import tseslint from 'typescript-eslint';
-import { globalIgnores } from 'eslint/config';
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import react from 'eslint-plugin-react'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import tseslint from 'typescript-eslint'
+import prettier from 'eslint-plugin-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
   globalIgnores(['dist']),
@@ -16,10 +18,12 @@ export default tseslint.config([
       tseslint.configs.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
+      eslintConfigPrettier,
     ],
     plugins: {
       react,
       'jsx-a11y': jsxA11y,
+      prettier,
     },
     languageOptions: {
       ecmaVersion: 2020,
@@ -36,6 +40,8 @@ export default tseslint.config([
       },
     },
     rules: {
+      // Prettier 포맷팅 규칙
+      'prettier/prettier': 'warn',
       // React a11y 접근성 규칙들
       'jsx-a11y/alt-text': 'error',
       'jsx-a11y/anchor-has-content': 'error',
@@ -79,10 +85,7 @@ export default tseslint.config([
       'react/display-name': 'warn',
 
       // React Refresh 규칙 조정
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
-]);
+])
