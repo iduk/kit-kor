@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import SamplePage from "@/pages/SamplePage"
-import { Home, LayoutDashboard, Settings, Users, BarChart3, SwatchBook } from "lucide-react"
+import { LayoutDashboard, Settings, Users, BarChart3, SwatchBook } from "lucide-react"
 
 // 대시보드 기본 페이지 컴포넌트
 const DashboardPage = () => (
@@ -56,21 +56,10 @@ const SettingsPage = () => (
 // 라우트 정의
 export const routes = [
   {
-    path: "/",
-    element: <DashboardPage />,
-    label: "홈",
-    icon: Home,
-  },
-  {
     path: "/dashboard",
     element: <DashboardPage />,
     label: "대시보드",
     icon: LayoutDashboard,
-    children: [
-      { path: "/dashboard/overview", label: "개요" },
-      { path: "/dashboard/stats", label: "통계" },
-      { path: "/dashboard/activity", label: "활동 로그" },
-    ],
   },
   {
     path: "/users",
@@ -87,6 +76,11 @@ export const routes = [
     element: <AnalyticsPage />,
     label: "분석",
     icon: BarChart3,
+    children: [
+      { path: "/analytics/overview", label: "개요" },
+      { path: "/analytics/stats", label: "통계" },
+      { path: "/analytics/activity", label: "활동 로그" },
+    ],
   },
   {
     path: "/settings",

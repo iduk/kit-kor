@@ -26,8 +26,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({})
   const location = useLocation()
 
-  const handleMenuToggle = (label: string) => {
-    setOpenMenus(prev => ({ ...prev, [label]: !prev[label] }))
+  const handleMenuToggle = (path: string) => {
+    setOpenMenus(prev => ({ ...prev, [path]: !prev[path] }))
+    console.log(path)
   }
 
   return (
@@ -67,13 +68,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
             {menuItems.map((item, index) => {
               const hasChildren = !!item.children
-              const isOpen = openMenus[item.label]
+              const isOpen = openMenus[item.path]
               return (
                 <div key={index}>
                   <Link
-                    to={hasChildren ? "#" : item.path}
+                    to={item.path}
                     onClick={
-                      hasChildren ? () => handleMenuToggle(item.label) : () => setSidebarOpen(false)
+                      hasChildren ? () => handleMenuToggle(item.path) : () => setSidebarOpen(false)
                     }
                     className={`
                       flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors w-full text-left no-underline
@@ -101,13 +102,17 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                   {hasChildren && isOpen && (
                     <ul className="ml-8 mt-1 space-y-1">
                       {item.children?.map((child: { path: string; label: string }) => (
-                        <li key={child.label}>
-                          <Link
-                            to={child.path}
+                        <li key={child.path}>
+                          <button
+                            onClick={() => {
+                              setOpenMenus(prev => ({ ...prev, [item.path]: false }))
+                              setSidebarOpen(false)
+                              console.log(child.path)
+                            }}
                             className="block rounded px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors no-underline"
                           >
                             {child.label}
-                          </Link>
+                          </button>
                         </li>
                       ))}
                     </ul>
@@ -148,14 +153,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
               {menuItems.map((item, index) => {
                 const hasChildren = !!item.children
-                const isOpen = openMenus[item.label]
+                const isOpen = openMenus[item.path]
                 return (
-                  <div key={item.label}>
-                    <button
-                      type={hasChildren ? "button" : undefined}
+                  <div key={item.path}>
+                    <Link
+                      to={item.path}
                       onClick={
                         hasChildren
-                          ? () => handleMenuToggle(item.label)
+                          ? () => handleMenuToggle(item.path)
                           : () => setSidebarOpen(false)
                       }
                       className={`
@@ -179,18 +184,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                           )}
                         </span>
                       )}
-                    </button>
+                    </Link>
                     {/* 하위 메뉴 */}
                     {hasChildren && isOpen && (
                       <ul className="ml-8 mt-1 space-y-1">
                         {item.children.map((child: { path: string; label: string }) => (
                           <li key={child.label}>
-                            <a
-                              href={child.path}
-                              className="block rounded px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            <Link
+                              to={child.path}
+                              className="block rounded px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors no-underline"
                             >
                               {child.label}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
