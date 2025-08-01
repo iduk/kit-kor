@@ -1,6 +1,6 @@
-import * as React from "react"
+import { createContext, useContext } from "react"
 
-const SidebarContext = React.createContext<{
+const SidebarContext = createContext<{
   state: "expanded" | "collapsed"
   open: boolean
   setOpen: (open: boolean) => void
@@ -11,7 +11,7 @@ const SidebarContext = React.createContext<{
 } | null>(null)
 
 export function useSidebar() {
-  const context = React.useContext(SidebarContext)
+  const context = useContext(SidebarContext)
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.")
   }

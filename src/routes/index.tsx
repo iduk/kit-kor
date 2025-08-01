@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+import Home from "@/pages/Home"
 import SamplePage from "@/pages/SamplePage"
 import { LayoutDashboard, Settings, Users, BarChart3, SwatchBook } from "lucide-react"
 
@@ -55,6 +56,12 @@ const SettingsPage = () => (
 
 // 라우트 정의
 export const routes = [
+  {
+    path: "/",
+    element: <Home />,
+    label: "Home",
+    icon: Home,
+  },
   {
     path: "/dashboard",
     element: <DashboardPage />,
