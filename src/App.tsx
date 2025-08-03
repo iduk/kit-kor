@@ -15,16 +15,16 @@ function App() {
     <>
       <RouterProvider router={router} />
 
-      {process.env.NODE_ENV === "development" && (
-        <button
-          className="absolute bottom-4 right-4 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-3 py-2 rounded"
-          onClick={() => {
-            throw new Error("테스트 에러 발생")
-          }}
-        >
-          Sentry Test
-        </button>
-      )}
+      {/* {process.env.NODE_ENV === "development" && ( */}
+      <button
+        className="absolute bottom-4 right-4 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-3 py-2 rounded"
+        onClick={() => {
+          throw new Error("테스트 에러 발생")
+        }}
+      >
+        Sentry Test
+      </button>
+      {/* )} */}
     </>
   )
 }
