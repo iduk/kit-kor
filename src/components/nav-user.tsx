@@ -16,7 +16,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-// import { useState, type ElementType } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 
 type UserProps = {

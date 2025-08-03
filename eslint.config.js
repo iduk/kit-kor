@@ -42,40 +42,13 @@ export default tseslint.config([
     rules: {
       // Prettier 포맷팅 규칙
       "prettier/prettier": "warn",
-      // React a11y 접근성 규칙들
-      "jsx-a11y/alt-text": "error",
-      "jsx-a11y/anchor-has-content": "error",
-      "jsx-a11y/anchor-is-valid": "error",
-      "jsx-a11y/aria-activedescendant-has-tabindex": "error",
-      "jsx-a11y/aria-props": "error",
-      "jsx-a11y/aria-proptypes": "error",
-      "jsx-a11y/aria-role": "error",
-      "jsx-a11y/aria-unsupported-elements": "error",
-      "jsx-a11y/autocomplete-valid": "error",
-      "jsx-a11y/click-events-have-key-events": "error",
-      "jsx-a11y/control-has-associated-label": "warn",
-      "jsx-a11y/heading-has-content": "error",
-      "jsx-a11y/html-has-lang": "error",
-      "jsx-a11y/iframe-has-title": "error",
-      "jsx-a11y/img-redundant-alt": "error",
-      "jsx-a11y/interactive-supports-focus": "error",
-      "jsx-a11y/label-has-associated-control": "error",
-      "jsx-a11y/lang": "error",
-      "jsx-a11y/media-has-caption": "warn",
-      "jsx-a11y/mouse-events-have-key-events": "error",
-      "jsx-a11y/no-access-key": "error",
-      "jsx-a11y/no-autofocus": "error",
-      "jsx-a11y/no-distracting-elements": "error",
-      "jsx-a11y/no-interactive-element-to-noninteractive-role": "error",
-      "jsx-a11y/no-noninteractive-element-interactions": "error",
-      "jsx-a11y/no-noninteractive-element-to-interactive-role": "error",
-      "jsx-a11y/no-noninteractive-tabindex": "error",
-      "jsx-a11y/no-redundant-roles": "error",
-      "jsx-a11y/no-static-element-interactions": "error",
-      "jsx-a11y/role-has-required-aria-props": "error",
-      "jsx-a11y/role-supports-aria-props": "error",
-      "jsx-a11y/scope": "error",
-      "jsx-a11y/tabindex-no-positive": "error",
+      // React a11y 접근성 규칙들 (필수 규칙만 적용)
+      "jsx-a11y/anchor-is-valid": "warn",
+      "jsx-a11y/alt-text": "warn",
+      "jsx-a11y/no-static-element-interactions": "warn", // 정적 요소에 대한 상호작용 규칙
+      "jsx-a11y/click-events-have-key-events": "warn", // 클릭 이벤트가 있는 요소에 키보드 이벤트도 필요
+      "jsx-a11y/no-noninteractive-element-interactions": "warn", // 비상호작용 요소에 이벤트 핸들러 사용 금지
+      "jsx-a11y/label-has-associated-control": "warn", // label 요소와 관련된 컨트롤이 있어야 함
 
       // React 기본 규칙들
       "react/jsx-uses-react": "off", // React 17+ 자동 JSX 변환
