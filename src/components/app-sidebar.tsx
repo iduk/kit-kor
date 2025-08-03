@@ -24,7 +24,7 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "iDuk",
+    name: "Duk",
     role: "최고관리자",
     email: "iduk@openflower.io",
     avatar: "https://avatars.githubusercontent.com/u/234324?v=4",
@@ -128,7 +128,23 @@ const data = {
       ],
     },
   ],
-  projects: [],
+  projects: [
+    {
+      name: "A Mock Project",
+      url: "#",
+      icon: SquareTerminal,
+    },
+    {
+      name: "B Mock Project",
+      url: "#",
+      icon: Bot,
+    },
+    {
+      name: "C Mock Project",
+      url: "#",
+      icon: BookOpen,
+    },
+  ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
