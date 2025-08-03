@@ -2,11 +2,9 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
-  Command,
   Frame,
   GalleryVerticalEnd,
   Map,
-  PieChart,
   Settings2,
   SquareTerminal,
 } from "lucide-react"
@@ -26,131 +24,111 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "iDuk",
+    role: "최고관리자",
+    email: "iduk@openflower.io",
+    avatar: "https://avatars.githubusercontent.com/u/234324?v=4",
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "오픈플라워",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "프로",
     },
     {
-      name: "Acme Corp.",
+      name: "오픈플라워 엔터프라이즈",
+      logo: Map,
+      plan: "스타트업",
+    },
+    {
+      name: "오픈플라워 커뮤니티",
       logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
+      plan: "무료",
     },
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "대시보드",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "기록",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "즐겨찾기",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "설정",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "AI",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "AI 대시보드",
           url: "#",
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
+          title: "AI 설정",
           url: "#",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "문서",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "문서 대시보드",
           url: "#",
         },
         {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
+          title: "문서 설정",
           url: "#",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "디자인 시스템",
+      url: "#",
+      icon: Frame,
+      items: [
+        {
+          title: "컴포넌트",
+          url: "#",
+        },
+        {
+          title: "스타일 가이드",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "설정",
       url: "#",
       icon: Settings2,
       items: [
         {
-          title: "General",
+          title: "프로필",
           url: "#",
         },
         {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
+          title: "계정 설정",
           url: "#",
         },
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  projects: [],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

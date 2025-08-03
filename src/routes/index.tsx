@@ -1,104 +1,163 @@
-/* eslint-disable react-refresh/only-export-components */
+import BlankLayout from "@/layouts/BlankLayout"
+import DefaultLayout from "@/layouts/DefaultLayout"
 import Home from "@/pages/Home"
-import SamplePage from "@/pages/SamplePage"
-import { LayoutDashboard, Settings, Users, BarChart3, SwatchBook } from "lucide-react"
+import NotFound from "@/pages/NotFound"
+// import { SquareTerminal, Bot, BookOpen, Frame, Settings2 } from "lucide-react"
+import { createHashRouter } from "react-router-dom"
 
-// 대시보드 기본 페이지 컴포넌트
-const DashboardPage = () => (
-  <div className="space-y-6">
-    <div className="bg-card p-6 rounded-lg border">
-      <h1 className="text-2xl font-bold text-foreground">대시보드</h1>
-      <p className="text-muted-foreground mt-2">여기가 메인 콘텐츠 영역입니다.</p>
-    </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div className="bg-card p-4 rounded-lg border hover:shadow-md transition-shadow">
-        <h3 className="font-semibold text-foreground">카드 1</h3>
-        <p className="text-sm text-muted-foreground mt-1">첫 번째 카드</p>
-      </div>
-      <div className="bg-card p-4 rounded-lg border hover:shadow-md transition-shadow">
-        <h3 className="font-semibold text-foreground">카드 2</h3>
-        <p className="text-sm text-muted-foreground mt-1">두 번째 카드</p>
-      </div>
-      <div className="bg-card p-4 rounded-lg border hover:shadow-md transition-shadow">
-        <h3 className="font-semibold text-foreground">카드 3</h3>
-        <p className="text-sm text-muted-foreground mt-1">세 번째 카드</p>
-      </div>
-    </div>
-  </div>
-)
+// default 레이아웃
+// export const routes = [
+//   {
+//     path: "/",
+//     element: <Home />,
+//     label: "대시보드",
+//     icon: SquareTerminal,
+//     children: [
+//       { path: "/records", label: "기록" },
+//       { path: "/favorites", label: "즐겨찾기" },
+//       { path: "/settings", label: "설정" },
+//     ],
+//   },
+//   {
+//     path: "/ai",
+//     label: "AI",
+//     icon: Bot,
+//     children: [
+//       { path: "/ai/dashboard", label: "AI 대시보드" },
+//       { path: "/ai/settings", label: "AI 설정" },
+//     ],
+//   },
+//   {
+//     path: "/docs",
+//     label: "문서",
+//     icon: BookOpen,
+//     children: [
+//       { path: "/docs/dashboard", label: "문서 대시보드" },
+//       { path: "/docs/settings", label: "문서 설정" },
+//     ],
+//   },
+//   {
+//     path: "/design-system",
+//     label: "디자인 시스템",
+//     icon: Frame,
+//     children: [
+//       { path: "/design-system/components", label: "컴포넌트" },
+//       { path: "/design-system/style-guide", label: "스타일 가이드" },
+//     ],
+//   },
+//   {
+//     path: "/settings",
+//     label: "설정",
+//     icon: Settings2,
+//     children: [
+//       { path: "/settings/profile", label: "프로필" },
+//       { path: "/settings/account", label: "계정 설정" },
+//     ],
+//   },
+// ]
 
-const UsersPage = () => (
-  <div className="space-y-6">
-    <div className="bg-card p-6 rounded-lg border">
-      <h1 className="text-2xl font-bold text-foreground">사용자 관리</h1>
-      <p className="text-muted-foreground mt-2">사용자 목록과 권한을 관리합니다.</p>
-    </div>
-  </div>
-)
+export default function routerComponent() {
+  return createHashRouter([
+    {
+      element: <BlankLayout />,
+      children: [
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+        // {
+        //   path: "/login",
+        //   element: <div>Login Page</div>,
+        // },
+      ],
+    },
+    {
+      element: <DefaultLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+          id: "home",
+          children: [
+            {
+              id: "records",
+              path: "/records",
+              element: <div>Records Page</div>,
+            },
+            {
+              id: "favorites",
+              path: "/favorites",
+              element: <div>Favorites Page</div>,
+            },
+            {
+              id: "settings",
+              path: "/settings",
+              element: <div>Settings Page</div>,
+            },
+          ],
+        },
+        {
+          path: "/ai",
+          children: [
+            {
+              id: "ai-dashboard",
+              path: "/ai/dashboard",
+              element: <div>AI Dashboard Page</div>,
+            },
+            {
+              id: "ai-settings",
+              path: "/ai/settings",
+              element: <div>AI Settings Page</div>,
+            },
+          ],
+        },
+        {
+          path: "/docs",
+          children: [
+            {
+              id: "docs-dashboard",
+              path: "/docs/dashboard",
+              element: <div>Docs Dashboard Page</div>,
+            },
+            {
+              id: "docs-settings",
+              path: "/docs/settings",
+              element: <div>Docs Settings Page</div>,
+            },
+          ],
+        },
+        {
+          path: "/design-system",
 
-const AnalyticsPage = () => (
-  <div className="space-y-6">
-    <div className="bg-card p-6 rounded-lg border">
-      <h1 className="text-2xl font-bold text-foreground">분석</h1>
-      <p className="text-muted-foreground mt-2">데이터 분석과 통계를 확인합니다.</p>
-    </div>
-  </div>
-)
-
-const SettingsPage = () => (
-  <div className="space-y-6">
-    <div className="bg-card p-6 rounded-lg border">
-      <h1 className="text-2xl font-bold text-foreground">설정</h1>
-      <p className="text-muted-foreground mt-2">시스템 설정을 관리합니다.</p>
-    </div>
-  </div>
-)
-
-// 라우트 정의
-export const routes = [
-  {
-    path: "/",
-    element: <Home />,
-    label: "Home",
-    icon: Home,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardPage />,
-    label: "대시보드",
-    icon: LayoutDashboard,
-  },
-  {
-    path: "/users",
-    element: <UsersPage />,
-    label: "사용자",
-    icon: Users,
-    children: [
-      { path: "/users/all", label: "전체 사용자" },
-      { path: "/users/roles", label: "권한 관리" },
-    ],
-  },
-  {
-    path: "/analytics",
-    element: <AnalyticsPage />,
-    label: "분석",
-    icon: BarChart3,
-    children: [
-      { path: "/analytics/overview", label: "개요" },
-      { path: "/analytics/stats", label: "통계" },
-      { path: "/analytics/activity", label: "활동 로그" },
-    ],
-  },
-  {
-    path: "/settings",
-    element: <SettingsPage />,
-    label: "설정",
-    icon: Settings,
-  },
-  {
-    path: "/sample",
-    element: <SamplePage />,
-    label: "샘플페이지",
-    icon: SwatchBook,
-  },
-]
+          children: [
+            {
+              id: "design-system-components",
+              path: "/design-system/components",
+              element: <div>Design System Components Page</div>,
+            },
+            {
+              id: "design-system-style-guide",
+              path: "/design-system/style-guide",
+              element: <div>Design System Style Guide Page</div>,
+            },
+          ],
+        },
+        {
+          path: "/settings",
+          children: [
+            {
+              id: "settings-profile",
+              path: "/settings/profile",
+              element: <div>Settings Profile Page</div>,
+            },
+            {
+              id: "settings-account",
+              path: "/settings/account",
+              element: <div>Settings Account Page</div>,
+            },
+          ],
+        },
+      ],
+    },
+  ])
+}

@@ -1,5 +1,3 @@
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import {
   SidebarGroup,
@@ -11,6 +9,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { ChevronRight, type LucideIcon } from "lucide-react"
 
 export function NavMain({
   items,
@@ -28,7 +27,7 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>플랫폼</SidebarGroupLabel>
       <SidebarMenu>
         {items.map(item => (
           <Collapsible
