@@ -1,9 +1,9 @@
+// import { SquareTerminal, Bot, BookOpen, Frame, Settings2 } from "lucide-react"
+import { createHashRouter } from "react-router-dom"
 import BlankLayout from "@/layouts/BlankLayout"
 import DefaultLayout from "@/layouts/DefaultLayout"
 import Home from "@/pages/Home"
 import NotFound from "@/pages/NotFound"
-// import { SquareTerminal, Bot, BookOpen, Frame, Settings2 } from "lucide-react"
-import { createHashRouter } from "react-router-dom"
 
 export default function routerComponent() {
   return createHashRouter([

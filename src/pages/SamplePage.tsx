@@ -1,40 +1,21 @@
+import {
+  Bell,
+  Calendar as CalendarIcon,
+  ChevronDown,
+  Download,
+  Edit,
+  Heart,
+  Mail,
+  Phone,
+  Plus,
+  Search,
+  Settings,
+  Star,
+  Trash,
+  Upload,
+  User,
+} from "lucide-react"
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Switch } from "@/components/ui/switch"
-import { Slider } from "@/components/ui/slider"
-import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -46,15 +27,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Command,
   CommandEmpty,
@@ -63,7 +47,19 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command"
-import { Calendar } from "@/components/ui/calendar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Progress } from "@/components/ui/progress"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
   Select,
   SelectContent,
@@ -72,22 +68,26 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {
-  Calendar as CalendarIcon,
-  ChevronDown,
-  Settings,
-  User,
-  Mail,
-  Phone,
-  Search,
-  Plus,
-  Edit,
-  Trash,
-  Download,
-  Upload,
-  Star,
-  Heart,
-  Bell,
-} from "lucide-react"
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Textarea } from "@/components/ui/textarea"
 
 export default function SamplePage() {
   const [progress, setProgress] = useState(33)
@@ -105,8 +105,8 @@ export default function SamplePage() {
   return (
     <div className="space-y-8 p-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">shadcn/ui 컴포넌트 쇼케이스</h1>
-        <p className="text-muted-foreground text-lg">
+        <h1 className="mb-2 font-bold text-4xl">shadcn/ui 컴포넌트 쇼케이스</h1>
+        <p className="text-lg text-muted-foreground">
           모든 shadcn/ui 컴포넌트를 한 번에 확인해보세요
         </p>
       </div>
@@ -148,14 +148,14 @@ export default function SamplePage() {
           <CardDescription>입력 필드 및 폼 요소들</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="email">이메일</Label>
-              <Input id="email" type="email" placeholder="이메일을 입력하세요" />
+              <Input id="email" placeholder="이메일을 입력하세요" type="email" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">비밀번호</Label>
-              <Input id="password" type="password" placeholder="비밀번호를 입력하세요" />
+              <Input id="password" placeholder="비밀번호를 입력하세요" type="password" />
             </div>
           </div>
 
@@ -186,11 +186,11 @@ export default function SamplePage() {
 
             <RadioGroup defaultValue="option1">
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="option1" id="r1" />
+                <RadioGroupItem id="r1" value="option1" />
                 <Label htmlFor="r1">옵션 1</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="option2" id="r2" />
+                <RadioGroupItem id="r2" value="option2" />
                 <Label htmlFor="r2">옵션 2</Label>
               </div>
             </RadioGroup>
@@ -213,22 +213,22 @@ export default function SamplePage() {
           <div className="space-y-2">
             <Label>볼륨: {sliderValue[0]}%</Label>
             <Slider
-              value={sliderValue}
-              onValueChange={setSliderValue}
-              max={100}
-              step={1}
               className="w-full"
+              max={100}
+              onValueChange={setSliderValue}
+              step={1}
+              value={sliderValue}
             />
           </div>
 
           <div className="space-y-2">
             <Label>진행률: {progress}%</Label>
-            <Progress value={progress} className="w-full" />
+            <Progress className="w-full" value={progress} />
             <div className="flex gap-2">
-              <Button size="sm" onClick={() => setProgress(Math.max(0, progress - 10))}>
+              <Button onClick={() => setProgress(Math.max(0, progress - 10))} size="sm">
                 -10%
               </Button>
-              <Button size="sm" onClick={() => setProgress(Math.min(100, progress + 10))}>
+              <Button onClick={() => setProgress(Math.min(100, progress + 10))} size="sm">
                 +10%
               </Button>
             </div>
@@ -309,26 +309,26 @@ export default function SamplePage() {
           <CardDescription>콘텐츠 구분을 위한 탭</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="tab1" className="w-full">
+          <Tabs className="w-full" defaultValue="tab1">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="tab1">프로필</TabsTrigger>
               <TabsTrigger value="tab2">설정</TabsTrigger>
               <TabsTrigger value="tab3">알림</TabsTrigger>
             </TabsList>
-            <TabsContent value="tab1" className="space-y-4">
-              <h3 className="text-lg font-semibold">프로필 정보</h3>
+            <TabsContent className="space-y-4" value="tab1">
+              <h3 className="font-semibold text-lg">프로필 정보</h3>
               <p className="text-muted-foreground">
                 사용자의 기본 프로필 정보를 관리할 수 있습니다.
               </p>
             </TabsContent>
-            <TabsContent value="tab2" className="space-y-4">
-              <h3 className="text-lg font-semibold">시스템 설정</h3>
+            <TabsContent className="space-y-4" value="tab2">
+              <h3 className="font-semibold text-lg">시스템 설정</h3>
               <p className="text-muted-foreground">
                 애플리케이션의 각종 설정을 변경할 수 있습니다.
               </p>
             </TabsContent>
-            <TabsContent value="tab3" className="space-y-4">
-              <h3 className="text-lg font-semibold">알림 설정</h3>
+            <TabsContent className="space-y-4" value="tab3">
+              <h3 className="font-semibold text-lg">알림 설정</h3>
               <p className="text-muted-foreground">받고 싶은 알림의 종류를 선택할 수 있습니다.</p>
             </TabsContent>
           </Tabs>
@@ -384,7 +384,7 @@ export default function SamplePage() {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
-                <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                <Calendar initialFocus mode="single" onSelect={setDate} selected={date} />
               </PopoverContent>
             </Popover>
 
@@ -421,7 +421,7 @@ export default function SamplePage() {
           <CardDescription>검색 가능한 명령어 인터페이스</CardDescription>
         </CardHeader>
         <CardContent>
-          <Command className="border rounded-lg">
+          <Command className="rounded-lg border">
             <CommandInput placeholder="명령어를 검색하세요..." />
             <CommandList>
               <CommandEmpty>결과가 없습니다.</CommandEmpty>
@@ -455,7 +455,7 @@ export default function SamplePage() {
       </Card>
 
       {/* 카드 갤러리 섹션 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -465,12 +465,12 @@ export default function SamplePage() {
             <CardDescription>자주 사용하는 항목들</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               즐겨찾기로 등록된 항목들을 빠르게 접근할 수 있습니다.
             </p>
           </CardContent>
           <CardFooter>
-            <Button size="sm" className="w-full">
+            <Button className="w-full" size="sm">
               <Heart className="mr-2 h-4 w-4" />
               추가하기
             </Button>
@@ -486,10 +486,10 @@ export default function SamplePage() {
             <CardDescription>최근 알림 내역</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">새로운 알림이 3개 있습니다.</p>
+            <p className="text-muted-foreground text-sm">새로운 알림이 3개 있습니다.</p>
           </CardContent>
           <CardFooter>
-            <Button size="sm" variant="outline" className="w-full">
+            <Button className="w-full" size="sm" variant="outline">
               모두 보기
             </Button>
           </CardFooter>
@@ -504,10 +504,10 @@ export default function SamplePage() {
             <CardDescription>읽지 않은 메시지</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">새로운 메시지가 5개 도착했습니다.</p>
+            <p className="text-muted-foreground text-sm">새로운 메시지가 5개 도착했습니다.</p>
           </CardContent>
           <CardFooter>
-            <Button size="sm" variant="secondary" className="w-full">
+            <Button className="w-full" size="sm" variant="secondary">
               <Phone className="mr-2 h-4 w-4" />
               답장하기
             </Button>

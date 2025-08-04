@@ -1,3 +1,4 @@
+import { ChevronRight, type LucideIcon } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import {
   SidebarGroup,
@@ -9,7 +10,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import { ChevronRight, type LucideIcon } from "lucide-react"
 
 export function NavMain({
   items,
@@ -31,10 +31,10 @@ export function NavMain({
       <SidebarMenu>
         {items.map(item => (
           <Collapsible
-            key={item.title}
             asChild
-            defaultOpen={item.isActive}
             className="group/collapsible"
+            defaultOpen={item.isActive}
+            key={item.title}
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>

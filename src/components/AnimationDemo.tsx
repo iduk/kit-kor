@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion"
+import { Button } from "./ui/button"
 import {
   Dialog,
   DialogContent,
@@ -8,19 +9,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog"
-import { Button } from "./ui/button"
 
 export function AnimationDemo() {
   const [isVisible, setIsVisible] = useState(false)
 
   return (
-    <div className="max-w-4xl mx-auto p-8 space-y-8">
-      <h1 className="text-3xl font-bold text-center mb-8">tw-animate-css 활용 예제</h1>
+    <div className="mx-auto max-w-4xl space-y-8 p-8">
+      <h1 className="mb-8 text-center font-bold text-3xl">tw-animate-css 활용 예제</h1>
 
       {/* 1. Accordion 애니메이션 (accordion-down/up) */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">1. Accordion 애니메이션</h2>
-        <Accordion type="single" collapsible className="w-full">
+        <h2 className="mb-4 font-semibold text-2xl">1. Accordion 애니메이션</h2>
+        <Accordion className="w-full" collapsible type="single">
           <AccordionItem value="item-1">
             <AccordionTrigger>accordion-down/up 애니메이션이란?</AccordionTrigger>
             <AccordionContent>
@@ -46,7 +46,7 @@ export function AnimationDemo() {
 
       {/* 2. Dialog 애니메이션 (fade-in, zoom-in) */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">2. Dialog 애니메이션</h2>
+        <h2 className="mb-4 font-semibold text-2xl">2. Dialog 애니메이션</h2>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline">Dialog 열기 (fade-in + zoom-in)</Button>
@@ -60,10 +60,10 @@ export function AnimationDemo() {
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Dialog 컴포넌트는 다음 애니메이션 클래스들을 사용합니다:
               </p>
-              <ul className="text-sm space-y-1 ml-4">
+              <ul className="ml-4 space-y-1 text-sm">
                 <li>• data-[state=open]:animate-in</li>
                 <li>• data-[state=open]:fade-in-0</li>
                 <li>• data-[state=open]:zoom-in-95</li>
@@ -78,19 +78,19 @@ export function AnimationDemo() {
 
       {/* 3. 커스텀 Enter/Exit 애니메이션 */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">3. 커스텀 Enter/Exit 애니메이션</h2>
+        <h2 className="mb-4 font-semibold text-2xl">3. 커스텀 Enter/Exit 애니메이션</h2>
         <div className="space-y-4">
           <Button onClick={() => setIsVisible(!isVisible)} variant="outline">
             {isVisible ? "숨기기" : "보이기"} (slide + fade)
           </Button>
 
           {isVisible && (
-            <div className="animate-in slide-in-from-left-8 fade-in-0 duration-500 bg-blue-50 border border-blue-200 rounded-lg p-6">
-              <h3 className="font-semibold text-blue-900 mb-2">왼쪽에서 슬라이드 + 페이드인!</h3>
+            <div className="slide-in-from-left-8 fade-in-0 animate-in rounded-lg border border-blue-200 bg-blue-50 p-6 duration-500">
+              <h3 className="mb-2 font-semibold text-blue-900">왼쪽에서 슬라이드 + 페이드인!</h3>
               <p className="text-blue-800">
                 이 박스는 다음 클래스들을 사용합니다:
                 <br />
-                <code className="bg-blue-100 px-2 py-1 rounded text-sm">
+                <code className="rounded bg-blue-100 px-2 py-1 text-sm">
                   animate-in slide-in-from-left-8 fade-in-0 duration-500
                 </code>
               </p>
@@ -101,29 +101,29 @@ export function AnimationDemo() {
 
       {/* 4. 다양한 애니메이션 효과들 */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">4. 다양한 애니메이션 효과</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <h2 className="mb-4 font-semibold text-2xl">4. 다양한 애니메이션 효과</h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {/* Zoom 효과 */}
-          <div className="animate-in zoom-in-50 fade-in-0 duration-700 delay-100 bg-green-50 border border-green-200 rounded-lg p-4">
-            <h4 className="font-semibold text-green-900 mb-2">Zoom In 효과</h4>
+          <div className="zoom-in-50 fade-in-0 animate-in rounded-lg border border-green-200 bg-green-50 p-4 delay-100 duration-700">
+            <h4 className="mb-2 font-semibold text-green-900">Zoom In 효과</h4>
             <p className="text-green-800 text-sm">zoom-in-50 + fade-in + delay-100</p>
           </div>
 
           {/* Slide from top */}
-          <div className="animate-in slide-in-from-top-4 fade-in-0 duration-700 delay-200 bg-purple-50 border border-purple-200 rounded-lg p-4">
-            <h4 className="font-semibold text-purple-900 mb-2">Top Slide 효과</h4>
+          <div className="slide-in-from-top-4 fade-in-0 animate-in rounded-lg border border-purple-200 bg-purple-50 p-4 delay-200 duration-700">
+            <h4 className="mb-2 font-semibold text-purple-900">Top Slide 효과</h4>
             <p className="text-purple-800 text-sm">slide-in-from-top-4 + fade-in + delay-200</p>
           </div>
 
           {/* Slide from right */}
-          <div className="animate-in slide-in-from-right-8 fade-in-0 duration-700 delay-300 bg-orange-50 border border-orange-200 rounded-lg p-4">
-            <h4 className="font-semibold text-orange-900 mb-2">Right Slide 효과</h4>
+          <div className="slide-in-from-right-8 fade-in-0 animate-in rounded-lg border border-orange-200 bg-orange-50 p-4 delay-300 duration-700">
+            <h4 className="mb-2 font-semibold text-orange-900">Right Slide 효과</h4>
             <p className="text-orange-800 text-sm">slide-in-from-right-8 + fade-in + delay-300</p>
           </div>
 
           {/* Spin 효과 */}
-          <div className="animate-in spin-in-6 fade-in-0 duration-700 delay-400 bg-pink-50 border border-pink-200 rounded-lg p-4">
-            <h4 className="font-semibold text-pink-900 mb-2">Spin 효과</h4>
+          <div className="spin-in-6 fade-in-0 animate-in rounded-lg border border-pink-200 bg-pink-50 p-4 delay-400 duration-700">
+            <h4 className="mb-2 font-semibold text-pink-900">Spin 효과</h4>
             <p className="text-pink-800 text-sm">spin-in-6 + fade-in + delay-400</p>
           </div>
         </div>
@@ -131,11 +131,11 @@ export function AnimationDemo() {
 
       {/* 5. 코드 예제 */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">5. 주요 클래스들</h2>
-        <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+        <h2 className="mb-4 font-semibold text-2xl">5. 주요 클래스들</h2>
+        <div className="space-y-4 rounded-lg bg-gray-50 p-6">
           <div>
-            <h4 className="font-semibold mb-2">기본 애니메이션 클래스:</h4>
-            <ul className="text-sm space-y-1 font-mono">
+            <h4 className="mb-2 font-semibold">기본 애니메이션 클래스:</h4>
+            <ul className="space-y-1 font-mono text-sm">
               <li>
                 • <code>animate-in</code> / <code>animate-out</code> - 기본 enter/exit
               </li>
@@ -158,8 +158,8 @@ export function AnimationDemo() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-2">타이밍 제어:</h4>
-            <ul className="text-sm space-y-1 font-mono">
+            <h4 className="mb-2 font-semibold">타이밍 제어:</h4>
+            <ul className="space-y-1 font-mono text-sm">
               <li>
                 • <code>duration-300</code> - 애니메이션 지속시간
               </li>
@@ -173,8 +173,8 @@ export function AnimationDemo() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-2">shadcn/ui 전용:</h4>
-            <ul className="text-sm space-y-1 font-mono">
+            <h4 className="mb-2 font-semibold">shadcn/ui 전용:</h4>
+            <ul className="space-y-1 font-mono text-sm">
               <li>
                 • <code>animate-accordion-down</code> - 아코디언 펼치기
               </li>
@@ -193,15 +193,15 @@ export function AnimationDemo() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4">6. 버튼 예제</h2>
-        <p className="text-sm text-muted-foreground">
+        <h2 className="mb-4 font-semibold text-2xl">6. 버튼 예제</h2>
+        <p className="text-muted-foreground text-sm">
           tw-animate-css를 사용하여 버튼에 다양한 애니메이션 효과를 적용할 수 있습니다. 아래 버튼을
           클릭해보세요!
         </p>
         <div className="mt-4">
           <Button
+            className="fade-in-0 animate-in duration-300 hover:scale-105"
             color="primary"
-            className="animate-in fade-in-0 duration-300 hover:scale-105"
             onClick={() => alert("버튼 클릭!")}
           >
             클릭해보세요!
@@ -209,8 +209,8 @@ export function AnimationDemo() {
         </div>
         <div className="mt-4">
           <Button
+            className="fade-in-0 animate-in duration-300 hover:scale-105"
             color="secondary"
-            className="animate-in fade-in-0 duration-300 hover:scale-105"
             onClick={() => alert("버튼 클릭!")}
           >
             클릭해보세요!
