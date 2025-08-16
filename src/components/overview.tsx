@@ -94,19 +94,23 @@ const chartConfig = {
 
 export function Overview() {
   return (
-    <ChartContainer config={chartConfig} className="h-[350px] w-full">
+    <ChartContainer config={chartConfig} className="h-[300px] sm:h-[350px] w-full">
       <BarChart data={data} barCategoryGap={8}>
         {/* 축/그리드 색도 토큰으로 통일 */}
         <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" />
 
         <XAxis
           dataKey="name"
-          tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+          tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
           axisLine={false}
           tickLine={false}
+          interval={0}
+          angle={-45}
+          textAnchor="end"
+          height={60}
         />
         <YAxis
-          tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+          tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
           axisLine={false}
           tickLine={false}
           tickFormatter={(v: number) => `$${v}`}
