@@ -1,0 +1,229 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Tailwind v4: 사용자 정의 다크 변형자 */
+@custom-variant dark (&:is(.dark *));
+
+/* =========
+   Base tokens (Light)
+   - 브랜드: #E21838
+   - 그레이 베이스: #1F2937
+   ========= */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* shadcn에서 참조하는 공통 토큰 */
+  --radius: 0.625rem;
+
+  /* === Light mode colors (OKLCH space) ===
+     - foreground를 #1F2937로 고정
+     - primary는 브랜드 #E21838
+     - 나머지는 #1F2937(그레이)와 white 를 OKLCH 공간에서 믹스해서 톤 구성
+  */
+  --background: oklch(1 0 0); /* white */
+  --foreground: #1f2937; /* 브랜드 그레이 */
+
+  --card: oklch(1 0 0);
+  --card-foreground: #1f2937;
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: #1f2937;
+
+  /* 브랜드 프라이머리 */
+  --primary: #e21838; /* HEX를 써도 이후 color-mix(in oklch, …)와 호환됩니다 */
+  --primary-foreground: oklch(0.985 0 0); /* 거의 흰색 */
+
+  /* 그레이 계열 서브톤(라이트) */
+  --secondary: color-mix(in oklch, #1f2937 20%, white 80%);
+  --secondary-foreground: #1f2937;
+
+  --muted: color-mix(in oklch, #1f2937 10%, white 90%);
+  --muted-foreground: color-mix(in oklch, #1f2937 60%, white 40%);
+
+  --accent: color-mix(in oklch, #1f2937 8%, white 92%);
+  --accent-foreground: #1f2937;
+
+  /* 상태/보더/인풋/포커스링 */
+  --destructive: oklch(0.64 0.23 26); /* 따뜻한 레드 톤 (필요시 조정) */
+  --border: color-mix(in oklch, #1f2937 8%, white 92%);
+  --input: color-mix(in oklch, #1f2937 8%, white 92%);
+  --ring: var(--primary); /* 포커스 = 브랜드 컬러 */
+
+  /* 차트 추천 팔레트 (브랜드 강조 포함) */
+  --chart-1: color-mix(in oklch, #e21838 80%, white 20%);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  /* 사이드바(라이트) */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: #1f2937;
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: color-mix(in oklch, #1f2937 8%, white 92%);
+  --sidebar-accent-foreground: #1f2937;
+  --sidebar-border: color-mix(in oklch, #1f2937 8%, white 92%);
+  --sidebar-ring: var(--primary);
+
+  /* (선택) 브랜드 팔레트 스케일 */
+  --brand-50: color-mix(in oklch, white 92%, #e21838 8%);
+  --brand-100: color-mix(in oklch, white 85%, #e21838 15%);
+  --brand-200: color-mix(in oklch, white 75%, #e21838 25%);
+  --brand-300: color-mix(in oklch, white 65%, #e21838 35%);
+  --brand-400: color-mix(in oklch, white 50%, #e21838 50%);
+  --brand-500: #e21838;
+  --brand-600: color-mix(in oklch, #e21838 85%, black 15%);
+  --brand-700: color-mix(in oklch, #e21838 70%, black 30%);
+  --brand-800: color-mix(in oklch, #e21838 55%, black 45%);
+  --brand-900: color-mix(in oklch, #e21838 40%, black 60%);
+}
+
+/* 링크 기본 스타일 (원하면 primary로 바꿔도 됩니다) */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* 기본 문서 크기 */
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* 시스템 라이트 선호시 색 반전 방지용(프로젝트 정책에 맞게 유지/삭제) */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
+
+/* Tailwind v4 토큰 매핑 (@theme inline) */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* =========
+   Dark mode tokens
+   ========= */
+.dark {
+  /* 다크 배경/전경 */
+  --background: #1f2937; /* 어두운 그레이 */
+  --foreground: oklch(0.985 0 0); /* 흰색 */
+
+  --card: color-mix(in oklch, #1f2937 92%, white 8%);
+  --card-foreground: oklch(0.985 0 0);
+
+  --popover: color-mix(in oklch, #1f2937 92%, white 8%);
+  --popover-foreground: oklch(0.985 0 0);
+
+  /* 다크에서 primary는 살짝 톤업(가독성↑) */
+  --primary: color-mix(in oklch, #e21838 90%, white 10%);
+  --primary-foreground: oklch(0.13 0 0); /* 거의 블랙 */
+
+  /* 그레이 계열 서브톤(다크) */
+  --secondary: color-mix(in oklch, #1f2937 60%, white 40%);
+  --secondary-foreground: oklch(0.985 0 0);
+
+  --muted: color-mix(in oklch, #1f2937 75%, white 25%);
+  --muted-foreground: color-mix(in oklch, white 75%, #1f2937 25%);
+
+  --accent: color-mix(in oklch, #1f2937 70%, white 30%);
+  --accent-foreground: oklch(0.985 0 0);
+
+  /* 상태/보더/인풋/링 */
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: color-mix(in oklch, #1f2937 70%, white 30%);
+  --input: color-mix(in oklch, #1f2937 70%, white 30%);
+  --ring: var(--primary);
+
+  /* 차트(다크) */
+  --chart-1: color-mix(in oklch, #e21838 80%, white 20%);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+
+  /* 사이드바(다크) */
+  --sidebar: color-mix(in oklch, #1f2937 80%, white 20%);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: color-mix(in oklch, #1f2937 72%, white 28%);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: color-mix(in oklch, #1f2937 70%, white 30%);
+  --sidebar-ring: var(--primary);
+}
+
+/* Tailwind base 레이어: 보더/텍스트/배경 토큰 적용 */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
