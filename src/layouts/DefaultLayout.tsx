@@ -34,8 +34,12 @@ export default function DefaultLayout() {
           </div>
         </header>
 
-        {/* content */}
-        <Outlet />
+        {/* container */}
+        <main className="@container/main flex flex-1 flex-col gap-2 p-4 pt-0">
+          <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
+            <Outlet />
+          </div>
+        </main>
       </SidebarInset>
     </SidebarProvider>
   )
