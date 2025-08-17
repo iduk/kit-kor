@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom"
 
 export default function BlankLayout() {
   return (
-    <div className="blank-layout">
+    <main className="@container/main flex flex-1 flex-col">
       <Outlet />
-    </div>
+    </main>
   )
 }

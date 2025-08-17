@@ -1,110 +1,116 @@
-// import { SquareTerminal, Bot, BookOpen, Frame, Settings2 } from "lucide-react"
-import { createHashRouter } from "react-router-dom"
-import BlankLayout from "@/layouts/BlankLayout"
-import DefaultLayout from "@/layouts/DefaultLayout"
-import Home from "@/pages/Home"
-import NotFound from "@/pages/NotFound"
+import { createBrowserRouter } from "react-router-dom"
+
+// 경로 패턴
+const pages = import.meta.glob("../pages/**/*.tsx")
+const layouts = import.meta.glob("../layouts/**/*.tsx")
+
+// lazyload: 지정한 맵에서 키로 꺼내 lazy 반환
+const getLazy = (map: Record<string, () => Promise<any>>, key: string) => async () => {
+  const mod = await map[key]()
+  return { Component: mod.default }
+}
 
 export default function routerComponent() {
-  return createHashRouter([
+  return createBrowserRouter([
     {
-      element: <BlankLayout />,
+      id: "login",
+      path: "/login",
+      lazy: getLazy(layouts, "../layouts/BlankLayout.tsx"),
       children: [
         {
-          path: "*",
-          element: <NotFound />,
-        },
-        {
-          path: "/login",
-          element: <div>Login Page</div>,
+          index: true,
+          lazy: getLazy(pages, "../pages/Login.tsx"),
         },
       ],
     },
     {
-      element: <DefaultLayout />,
+      id: "home",
+      path: "/",
+      lazy: getLazy(layouts, "../layouts/DefaultLayout.tsx"),
       children: [
         {
-          path: "/",
-          element: <Home />,
-          id: "home",
-          children: [
-            {
-              id: "records",
-              path: "/records",
-              element: <div>Records Page</div>,
-            },
-            {
-              id: "favorites",
-              path: "/favorites",
-              element: <div>Favorites Page</div>,
-            },
-            {
-              id: "settings",
-              path: "/settings",
-              element: <div>Settings Page</div>,
-            },
-          ],
+          index: true,
+          lazy: getLazy(pages, "../pages/Home.tsx"),
         },
         {
-          path: "/ai",
+          id: "records",
+          path: "records",
+          lazy: getLazy(pages, "../pages/Records.tsx"),
+        },
+        {
+          id: "favorites",
+          path: "favorites",
+          lazy: getLazy(pages, "../pages/Favorites.tsx"),
+        },
+        {
+          id: "settings",
+          path: "settings",
+          lazy: getLazy(pages, "../pages/Settings.tsx"),
+        },
+        {
+          path: "ai",
           children: [
             {
               id: "ai-dashboard",
-              path: "/ai/dashboard",
-              element: <div>AI Dashboard Page</div>,
+              path: "dashboard",
+              lazy: getLazy(pages, "../pages/AIDashboard.tsx"),
             },
             {
               id: "ai-settings",
-              path: "/ai/settings",
-              element: <div>AI Settings Page</div>,
+              path: "settings",
+              lazy: getLazy(pages, "../pages/AISettings.tsx"),
             },
           ],
         },
         {
-          path: "/docs",
+          path: "docs",
           children: [
             {
               id: "docs-dashboard",
-              path: "/docs/dashboard",
-              element: <div>Docs Dashboard Page</div>,
+              path: "dashboard",
+              lazy: getLazy(pages, "../pages/DocsDashboard.tsx"),
             },
             {
               id: "docs-settings",
-              path: "/docs/settings",
-              element: <div>Docs Settings Page</div>,
+              path: "settings",
+              lazy: getLazy(pages, "../pages/DocsSettings.tsx"),
             },
           ],
         },
         {
-          path: "/design-system",
-
+          path: "design-system",
           children: [
             {
               id: "design-system-components",
-              path: "/design-system/components",
-              element: <div>Design System Components Page</div>,
+              path: "components",
+              lazy: getLazy(pages, "../pages/DesignSystemComponents.tsx"),
             },
             {
               id: "design-system-style-guide",
-              path: "/design-system/style-guide",
-              element: <div>Design System Style Guide Page</div>,
+              path: "style-guide",
+              lazy: getLazy(pages, "../pages/DesignSystemStyleGuide.tsx"),
             },
           ],
         },
         {
-          path: "/settings",
+          path: "settings",
           children: [
             {
               id: "settings-profile",
-              path: "/settings/profile",
-              element: <div>Settings Profile Page</div>,
+              path: "profile",
+              lazy: getLazy(pages, "../pages/SettingsProfile.tsx"),
             },
             {
               id: "settings-account",
-              path: "/settings/account",
-              element: <div>Settings Account Page</div>,
+              path: "account",
+              lazy: getLazy(pages, "../pages/SettingsAccount.tsx"),
             },
           ],
+        },
+        {
+          id: "not-found",
+          path: "*",
+          lazy: getLazy(pages, "../pages/NotFound.tsx"),
         },
       ],
     },
