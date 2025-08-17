@@ -1,6 +1,6 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin"
 import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
+import react from "@vitejs/plugin-react-swc"
 import path from "path"
 import { defineConfig } from "vite"
 
@@ -12,6 +12,10 @@ export default defineConfig({
     sentryVitePlugin({
       org: "iduk",
       project: "iduk",
+      sourcemaps: {
+        assets: "./dist/**",
+        filesToDeleteAfterUpload: ["./dist/**/*.map"], // 업로드 후 .map 제거
+      },
     }),
   ],
 
@@ -23,6 +27,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    dedupe: ["react", "react-dom"], // 중복된 React 및 ReactDOM 모듈 제거
   },
 
   build: {

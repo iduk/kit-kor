@@ -58,7 +58,7 @@ export default tseslint.config([
       "react/display-name": "warn",
 
       // React Refresh 규칙 조정
-      "react-refresh/only-export-components": "off",
+      "react-refresh/only-export-components": "warn", // 컴포넌트만 export 하도록 권장
     },
   },
 ])
