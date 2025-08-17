@@ -124,7 +124,7 @@ function DragHandle({ id }: { id: number }) {
       className="text-muted-foreground size-7 hover:bg-transparent"
     >
       <IconGripVertical className="text-muted-foreground size-3" />
-      <span className="sr-only">Drag to reorder</span>
+      <span className="sr-only">드래그하여 순서 변경</span>
     </Button>
   )
 }
@@ -145,7 +145,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
             (table.getIsSomePageRowsSelected() && "indeterminate")
           }
           onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
+          aria-label="모두 선택"
         />
       </div>
     ),
@@ -154,7 +154,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={value => row.toggleSelected(!!value)}
-          aria-label="Select row"
+          aria-label="행 선택"
         />
       </div>
     ),
@@ -163,7 +163,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     accessorKey: "header",
-    header: "Header",
+    header: "제목",
     cell: ({ row }) => {
       return <TableCellViewer item={row.original} />
     },
@@ -171,7 +171,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     accessorKey: "type",
-    header: "Section Type",
+    header: "섹션 타입",
     cell: ({ row }) => (
       <div className="w-32">
         <Badge variant="outline" className="text-muted-foreground px-1.5">
@@ -182,7 +182,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "상태",
     cell: ({ row }) => (
       <Badge variant="outline" className="text-muted-foreground px-1.5">
         {row.original.status === "Done" ? (
@@ -190,13 +190,13 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         ) : (
           <IconLoader />
         )}
-        {row.original.status}
+        {row.original.status === "Done" ? "완료" : "진행중"}
       </Badge>
     ),
   },
   {
     accessorKey: "target",
-    header: () => <div className="w-full">Target</div>,
+    header: () => <div className="w-full">목표</div>,
     cell: ({ row }) => (
       <form
         onSubmit={e => {
@@ -221,7 +221,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     accessorKey: "limit",
-    header: () => <div className="w-full">Limit</div>,
+    header: () => <div className="w-full">제한</div>,
     cell: ({ row }) => (
       <form
         onSubmit={e => {
@@ -246,7 +246,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     accessorKey: "reviewer",
-    header: "Reviewer",
+    header: "검토자",
     cell: ({ row }) => {
       const isAssigned = row.original.reviewer !== "Assign reviewer"
 
@@ -265,7 +265,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
               size="sm"
               id={`${row.original.id}-reviewer`}
             >
-              <SelectValue placeholder="Assign reviewer" />
+              <SelectValue placeholder="검토자 지정" />
             </SelectTrigger>
             <SelectContent align="end">
               <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
@@ -390,32 +390,32 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
         </Label>
         <Select defaultValue="outline">
           <SelectTrigger className="flex w-fit @4xl/main:hidden" size="sm" id="view-selector">
-            <SelectValue placeholder="Select a view" />
+            <SelectValue placeholder="보기 선택" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-            <SelectItem value="focus-documents">Focus Documents</SelectItem>
+            <SelectItem value="outline">개요</SelectItem>
+            <SelectItem value="past-performance">과거 실적</SelectItem>
+            <SelectItem value="key-personnel">주요 인력</SelectItem>
+            <SelectItem value="focus-documents">중점 문서</SelectItem>
           </SelectContent>
         </Select>
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
+          <TabsTrigger value="outline">개요</TabsTrigger>
           <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
+            과거 실적 <Badge variant="secondary">3</Badge>
           </TabsTrigger>
           <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
+            주요 인력 <Badge variant="secondary">2</Badge>
           </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
+          <TabsTrigger value="focus-documents">중점 문서</TabsTrigger>
         </TabsList>
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
                 <IconLayoutColumns />
-                <span className="hidden lg:inline">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
+                <span className="hidden lg:inline">컬럼 사용자 정의</span>
+                <span className="lg:hidden">컬럼</span>
                 <IconChevronDown />
               </Button>
             </DropdownMenuTrigger>
@@ -424,6 +424,16 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
                 .getAllColumns()
                 .filter(column => typeof column.accessorFn !== "undefined" && column.getCanHide())
                 .map(column => {
+                  const columnLabels: Record<string, string> = {
+                    header: "제목",
+                    type: "섹션 타입",
+                    status: "상태",
+                    target: "목표",
+                    limit: "제한",
+                    reviewer: "검토자",
+                    actions: "작업",
+                  }
+
                   return (
                     <DropdownMenuCheckboxItem
                       key={column.id}
@@ -431,7 +441,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
                       checked={column.getIsVisible()}
                       onCheckedChange={value => column.toggleVisibility(!!value)}
                     >
-                      {column.id}
+                      {columnLabels[column.id] || column.id}
                     </DropdownMenuCheckboxItem>
                   )
                 })}
@@ -439,7 +449,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
           </DropdownMenu>
           <Button variant="outline" size="sm">
             <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
+            <span className="hidden lg:inline">섹션 추가</span>
           </Button>
         </div>
       </div>
@@ -492,12 +502,12 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
         <div className="flex items-center justify-between px-4">
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredRowModel().rows.length}개 행이 선택됨.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
             <div className="hidden items-center gap-2 lg:flex">
               <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Rows per page
+                페이지당 행 수
               </Label>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
@@ -518,7 +528,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
               </Select>
             </div>
             <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              {table.getState().pagination.pageIndex + 1} / {table.getPageCount()} 페이지
             </div>
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
               <Button
@@ -527,7 +537,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to first page</span>
+                <span className="sr-only">첫 페이지로 이동</span>
                 <IconChevronsLeft />
               </Button>
               <Button
@@ -537,7 +547,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to previous page</span>
+                <span className="sr-only">이전 페이지로 이동</span>
                 <IconChevronLeft />
               </Button>
               <Button
@@ -547,7 +557,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to next page</span>
+                <span className="sr-only">다음 페이지로 이동</span>
                 <IconChevronRight />
               </Button>
               <Button
@@ -557,7 +567,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to last page</span>
+                <span className="sr-only">마지막 페이지로 이동</span>
                 <IconChevronsRight />
               </Button>
             </div>
@@ -578,21 +588,21 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
 }
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "1월", desktop: 186, mobile: 80 },
+  { month: "2월", desktop: 305, mobile: 200 },
+  { month: "3월", desktop: 237, mobile: 120 },
+  { month: "4월", desktop: 73, mobile: 190 },
+  { month: "5월", desktop: 209, mobile: 130 },
+  { month: "6월", desktop: 214, mobile: 140 },
 ]
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "데스크톱",
     color: "var(--primary)",
   },
   mobile: {
-    label: "Mobile",
+    label: "모바일",
     color: "var(--primary)",
   },
 } satisfies ChartConfig
@@ -610,7 +620,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
       <DrawerContent>
         <DrawerHeader className="gap-1">
           <DrawerTitle>{item.header}</DrawerTitle>
-          <DrawerDescription>Showing total visitors for the last 6 months</DrawerDescription>
+          <DrawerDescription>지난 6개월간 총 방문자 수 표시</DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
           {!isMobile && (
@@ -655,11 +665,11 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
               <Separator />
               <div className="grid gap-2">
                 <div className="flex gap-2 leading-none font-medium">
-                  Trending up by 5.2% this month <IconTrendingUp className="size-4" />
+                  이번 달 5.2% 증가 <IconTrendingUp className="size-4" />
                 </div>
                 <div className="text-muted-foreground">
-                  Showing total visitors for the last 6 months. This is just some random text to
-                  test the layout. It spans multiple lines and should wrap around.
+                  지난 6개월간 총 방문자 수를 표시합니다. 이것은 레이아웃을 테스트하기 위한 임시
+                  텍스트입니다. 여러 줄에 걸쳐 표시되며 자동으로 줄바꿈됩니다.
                 </div>
               </div>
               <Separator />
@@ -667,57 +677,57 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           )}
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
-              <Label htmlFor="header">Header</Label>
+              <Label htmlFor="header">헤더</Label>
               <Input id="header" defaultValue={item.header} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="type">Type</Label>
+                <Label htmlFor="type">유형</Label>
                 <Select defaultValue={item.type}>
                   <SelectTrigger id="type" className="w-full">
-                    <SelectValue placeholder="Select a type" />
+                    <SelectValue placeholder="유형 선택" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Table of Contents">Table of Contents</SelectItem>
-                    <SelectItem value="Executive Summary">Executive Summary</SelectItem>
-                    <SelectItem value="Technical Approach">Technical Approach</SelectItem>
-                    <SelectItem value="Design">Design</SelectItem>
-                    <SelectItem value="Capabilities">Capabilities</SelectItem>
-                    <SelectItem value="Focus Documents">Focus Documents</SelectItem>
-                    <SelectItem value="Narrative">Narrative</SelectItem>
-                    <SelectItem value="Cover Page">Cover Page</SelectItem>
+                    <SelectItem value="Table of Contents">목차</SelectItem>
+                    <SelectItem value="Executive Summary">요약</SelectItem>
+                    <SelectItem value="Technical Approach">기술적 접근</SelectItem>
+                    <SelectItem value="Design">디자인</SelectItem>
+                    <SelectItem value="Capabilities">기능</SelectItem>
+                    <SelectItem value="Focus Documents">중점 문서</SelectItem>
+                    <SelectItem value="Narrative">서술</SelectItem>
+                    <SelectItem value="Cover Page">표지</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="status">Status</Label>
+                <Label htmlFor="status">상태</Label>
                 <Select defaultValue={item.status}>
                   <SelectTrigger id="status" className="w-full">
-                    <SelectValue placeholder="Select a status" />
+                    <SelectValue placeholder="상태 선택" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Done">Done</SelectItem>
-                    <SelectItem value="In Progress">In Progress</SelectItem>
-                    <SelectItem value="Not Started">Not Started</SelectItem>
+                    <SelectItem value="Done">완료</SelectItem>
+                    <SelectItem value="In Progress">진행중</SelectItem>
+                    <SelectItem value="Not Started">시작 안됨</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="target">Target</Label>
+                <Label htmlFor="target">목표</Label>
                 <Input id="target" defaultValue={item.target} />
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="limit">Limit</Label>
+                <Label htmlFor="limit">제한</Label>
                 <Input id="limit" defaultValue={item.limit} />
               </div>
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="reviewer">Reviewer</Label>
+              <Label htmlFor="reviewer">검토자</Label>
               <Select defaultValue={item.reviewer}>
                 <SelectTrigger id="reviewer" className="w-full">
-                  <SelectValue placeholder="Select a reviewer" />
+                  <SelectValue placeholder="검토자 선택" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
@@ -729,9 +739,9 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           </form>
         </div>
         <DrawerFooter>
-          <Button>Submit</Button>
+          <Button>제출</Button>
           <DrawerClose asChild>
-            <Button variant="outline">Done</Button>
+            <Button variant="outline">완료</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

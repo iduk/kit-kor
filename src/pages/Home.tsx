@@ -11,32 +11,32 @@ export default function Home() {
       <div className="grid auto-rows-min gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">총 수익</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+            <div className="text-2xl font-bold">₩45,231,890</div>
+            <p className="text-xs text-muted-foreground">지난 달 대비 +20.1%</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+            <CardTitle className="text-sm font-medium">구독자</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">+180.1% from last month</p>
+            <div className="text-2xl font-bold">+2,350</div>
+            <p className="text-xs text-muted-foreground">지난 달 대비 +180.1%</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
+            <CardTitle className="text-sm font-medium">판매</CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">+19% from last month</p>
+            <p className="text-xs text-muted-foreground">지난 달 대비 +19%</p>
           </CardContent>
         </Card>
       </div>
@@ -46,8 +46,8 @@ export default function Home() {
 
         <Card className="">
           <CardHeader>
-            <CardTitle>Payments</CardTitle>
-            <CardDescription>A list of your recent payments.</CardDescription>
+            <CardTitle>결제 내역</CardTitle>
+            <CardDescription>최근 결제 내역 목록입니다.</CardDescription>
           </CardHeader>
           <CardContent className="overflow-x-auto">
             <DataTable data={data} />
