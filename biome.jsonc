@@ -14,12 +14,12 @@
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "double",
-      "semicolons": "asNeeded",
-      "arrowParentheses": "asNeeded",
-      "jsxQuoteStyle": "double",
-      "trailingCommas": "es5",
-      "bracketSameLine": false
+      "quoteStyle": "double", // 문자열에 사용할 따옴표 스타일
+      "semicolons": "asNeeded", // 세미콜론 사용 여부
+      "arrowParentheses": "asNeeded", // 화살표 함수의 괄호 사용 여부
+      "jsxQuoteStyle": "double", // JSX에서 문자열에 사용할 따옴표 스타일
+      "trailingCommas": "es5", // 후행 쉼표 사용 여부
+      "bracketSameLine": false // 여는 괄호와 같은 줄에 닫는 괄호를 위치시킬지 여부
     }
   },
   "json": {
