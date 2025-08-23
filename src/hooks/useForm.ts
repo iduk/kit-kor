@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { type UseFormReturn } from "react-hook-form"
+import { type UseFormReturn, type FieldValues } from "react-hook-form"
 import { create } from "zustand"
 
 interface FormStore {
-  forms: Record<string, UseFormReturn<any>>
-  registerForm: (id: string, form: UseFormReturn<any>) => void
+  forms: Partial<Record<string, UseFormReturn<FieldValues>>>
+  registerForm: (id: string, form: UseFormReturn<FieldValues> | undefined) => void
   unregisterForm: (id: string) => void
-  getForm: (id: string) => UseFormReturn<any> | undefined
+  getForm: (id: string) => UseFormReturn<FieldValues> | undefined
 }
 
 export const useFormStore = create<FormStore>((set, get) => ({
@@ -18,7 +16,8 @@ export const useFormStore = create<FormStore>((set, get) => ({
     })),
   unregisterForm: id =>
     set(state => {
-      const { [id]: removed, ...rest } = state.forms
+      const rest = { ...state.forms }
+      delete rest[id]
       return { forms: rest }
     }),
   getForm: id => get().forms[id],
