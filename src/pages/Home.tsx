@@ -3,6 +3,7 @@ import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { CreditCard, DollarSign, Users } from "lucide-react"
+import React from "react"
 
 export default function Home() {
   return (
@@ -50,7 +51,9 @@ export default function Home() {
             <CardDescription>최근 결제 내역 목록입니다.</CardDescription>
           </CardHeader>
           <CardContent className="overflow-x-auto">
-            <DataTable data={data} />
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <DataTable data={data} />
+            </React.Suspense>
           </CardContent>
         </Card>
       </div>

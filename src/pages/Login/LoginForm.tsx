@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 const loginSchema = z.object({
@@ -15,6 +16,8 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -110,9 +113,15 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               </div>
               <div className="text-center text-sm">
                 계정이 없으신가요?{" "}
-                <a href="#" className="underline underline-offset-4">
+                <button
+                  type="button"
+                  className="underline underline-offset-4 bg-transparent border-none p-0 text-primary cursor-pointer"
+                  onClick={() => {
+                    navigate("/register")
+                  }}
+                >
                   회원가입
-                </a>
+                </button>
               </div>
             </div>
           </form>

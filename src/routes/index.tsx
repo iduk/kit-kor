@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import BlankLayout from "@/layouts/BlankLayout"
+import LoginPage from "@/pages/Login"
+import RegisterPage from "@/pages/Register"
 import { createBrowserRouter } from "react-router-dom"
 
 // 경로 패턴
@@ -14,13 +17,17 @@ const getLazy = (map: Record<string, () => Promise<any>>, key: string) => async 
 export default function routerComponent() {
   return createBrowserRouter([
     {
-      id: "login",
-      path: "/login",
-      lazy: getLazy(layouts, "../layouts/BlankLayout.tsx"),
+      Component: BlankLayout,
       children: [
         {
-          index: true,
-          lazy: getLazy(pages, "../pages/Login.tsx"),
+          id: "login",
+          path: "/login",
+          Component: LoginPage,
+        },
+        {
+          id: "register",
+          path: "/register",
+          Component: RegisterPage,
         },
       ],
     },

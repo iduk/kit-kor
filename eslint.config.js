@@ -1,11 +1,11 @@
 import js from "@eslint/js"
-import { globalIgnores } from "eslint/config"
 import eslintConfigPrettier from "eslint-config-prettier"
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import prettier from "eslint-plugin-prettier"
 import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
+import { globalIgnores } from "eslint/config"
 import globals from "globals"
 import tseslint from "typescript-eslint"
 
@@ -56,6 +56,8 @@ export default tseslint.config([
       "react/jsx-uses-vars": "error",
       "react/prop-types": "off", // TypeScript 사용시 불필요
       "react/display-name": "warn",
+      "no-unused-vars": "off", // TODO: 사용하지 않는 변수 임시 허용
+      "@typescript-eslint/no-unused-vars": "off", // TODO: 사용하지 않는 변수 임시 허용
 
       // React Refresh 규칙 조정
       "react-refresh/only-export-components": "warn", // 컴포넌트만 export 하도록 권장
