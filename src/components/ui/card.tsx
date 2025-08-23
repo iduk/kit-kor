@@ -1,12 +1,62 @@
 import { cn } from "@/lib/utils"
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+type CardProps = React.ComponentProps<"div"> & {
+  enhanceA11y?: boolean
+}
+
+function Card({ className, enhanceA11y = false, ...props }: CardProps) {
+  const [isEnhanced, setIsEnhanced] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    requestIdleCallback(() => {
+      if (cardRef.current) {
+        // 카드 크기에 따른 동적 스타일링
+        const { width, height } = cardRef.current.getBoundingClientRect()
+        const aspectRatio = width / height
+
+        if (aspectRatio > 1.5) {
+          cardRef.current.setAttribute("data-layout", "wide")
+        } else if (aspectRatio < 0.7) {
+          cardRef.current.setAttribute("data-layout", "tall")
+        }
+
+        setIsEnhanced(true)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (enhanceA11y && typeof window.requestIdleCallback === "function") {
+      requestIdleCallback(() => {
+        if (cardRef.current) {
+          // 접근성 속성 추가
+          const hasInteractiveContent = cardRef.current.querySelector(
+            "button, a, input, select, textarea"
+          )
+
+          if (hasInteractiveContent) {
+            cardRef.current.setAttribute("role", "region")
+            cardRef.current.setAttribute("tabindex", "0")
+          }
+
+          const title = cardRef.current.querySelector('[data-slot="card-title"]')?.textContent
+          if (title) {
+            cardRef.current.setAttribute("aria-label", `카드: ${title}`)
+          }
+        }
+      })
+    }
+  }, [enhanceA11y])
+
   return (
     <div
       data-slot="card"
+      data-enhanced={isEnhanced}
       className={cn(
         "bg-card text-card-foreground flex flex-col gap-4 md:gap-6 rounded-xl border py-4 md:py-6 shadow-sm",
+        isEnhanced && "transition-all duration-200",
         className
       )}
       {...props}
