@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createBrowserRouter } from "react-router-dom"
 
 // 경로 패턴

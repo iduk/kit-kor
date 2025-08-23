@@ -1,5 +1,3 @@
-import { Separator } from "@radix-ui/react-separator"
-import { Outlet } from "react-router-dom"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -10,6 +8,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { Separator } from "@radix-ui/react-separator"
+import { Outlet } from "react-router-dom"
 
 export default function DefaultLayout() {
   return (

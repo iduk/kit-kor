@@ -1,7 +1,7 @@
-import { DataTable } from "@/components/data-table"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import data from "./data.json"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
+import { DataTable } from "@/components/data-table"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { CreditCard, DollarSign, Users } from "lucide-react"
 
 export default function Home() {

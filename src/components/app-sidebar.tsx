@@ -1,14 +1,3 @@
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
-
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
@@ -20,6 +9,16 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import {
+  AudioWaveform,
+  BookOpen,
+  Bot,
+  Frame,
+  GalleryVerticalEnd,
+  Map,
+  Settings2,
+  SquareTerminal,
+} from "lucide-react"
 
 // This is sample data.
 const data = {

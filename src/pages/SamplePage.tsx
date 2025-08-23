@@ -1,22 +1,4 @@
 import {
-  Bell,
-  Calendar as CalendarIcon,
-  ChevronDown,
-  Download,
-  Edit,
-  Heart,
-  Mail,
-  Phone,
-  Plus,
-  Search,
-  Settings,
-  Star,
-  Trash,
-  Upload,
-  User,
-} from "lucide-react"
-import { useState } from "react"
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -88,6 +70,24 @@ import {
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
+import {
+  Bell,
+  Calendar as CalendarIcon,
+  ChevronDown,
+  Download,
+  Edit,
+  Heart,
+  Mail,
+  Phone,
+  Plus,
+  Search,
+  Settings,
+  Star,
+  Trash,
+  Upload,
+  User,
+} from "lucide-react"
+import { useState } from "react"
 
 export default function SamplePage() {
   const [progress, setProgress] = useState(33)

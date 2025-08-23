@@ -1,5 +1,3 @@
-import { ChevronUp, Folder, Forward, type LucideIcon, MoreHorizontal, Trash2 } from "lucide-react"
-import React, { useState } from "react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +14,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { ChevronUp, Folder, Forward, type LucideIcon, MoreHorizontal, Trash2 } from "lucide-react"
+import React, { useState } from "react"
 
 export function NavProjects({
   projects,
