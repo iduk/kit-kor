@@ -4,7 +4,7 @@ import { create } from "zustand"
 interface FormStore {
   forms: Partial<Record<string, UseFormReturn<FieldValues>>>
   registerForm: (id: string, form: UseFormReturn<FieldValues> | undefined) => void
-  unregisterForm: (id: string) => void
+  unRegisterForm: (id: string) => void
   getForm: (id: string) => UseFormReturn<FieldValues> | undefined
 }
 
@@ -14,7 +14,7 @@ export const useFormStore = create<FormStore>((set, get) => ({
     set(state => ({
       forms: { ...state.forms, [id]: form },
     })),
-  unregisterForm: id =>
+  unRegisterForm: id =>
     set(state => {
       const rest = { ...state.forms }
       delete rest[id]
