@@ -1,62 +1,63 @@
 import { cn } from "@/lib/utils"
-import React, { useEffect, useRef, useState } from "react"
+
+// import React, { useEffect, useRef, useState } from "react"
 
 type CardProps = React.ComponentProps<"div"> & {
   enhanceA11y?: boolean
 }
 
 function Card({ className, enhanceA11y = false, ...props }: CardProps) {
-  const [isEnhanced, setIsEnhanced] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
+  // const [isEnhanced, setIsEnhanced] = useState(false)
+  // const cardRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    requestIdleCallback(() => {
-      if (cardRef.current) {
-        // 카드 크기에 따른 동적 스타일링
-        const { width, height } = cardRef.current.getBoundingClientRect()
-        const aspectRatio = width / height
+  // useEffect(() => {
+  //   requestIdleCallback(() => {
+  //     if (cardRef.current) {
+  //       // 카드 크기에 따른 동적 스타일링
+  //       const { width, height } = cardRef.current.getBoundingClientRect()
+  //       const aspectRatio = width / height
 
-        if (aspectRatio > 1.5) {
-          cardRef.current.setAttribute("data-layout", "wide")
-        } else if (aspectRatio < 0.7) {
-          cardRef.current.setAttribute("data-layout", "tall")
-        }
+  //       if (aspectRatio > 1.5) {
+  //         cardRef.current.setAttribute("data-layout", "wide")
+  //       } else if (aspectRatio < 0.7) {
+  //         cardRef.current.setAttribute("data-layout", "tall")
+  //       }
 
-        setIsEnhanced(true)
-      }
-    })
-  }, [])
+  //       setIsEnhanced(true)
+  //     }
+  //   })
+  // }, [])
 
-  useEffect(() => {
-    if (enhanceA11y && typeof window.requestIdleCallback === "function") {
-      requestIdleCallback(() => {
-        if (cardRef.current) {
-          // 접근성 속성 추가
-          const hasInteractiveContent = cardRef.current.querySelector(
-            "button, a, input, select, textarea"
-          )
+  // useEffect(() => {
+  //   if (enhanceA11y && typeof window.requestIdleCallback === "function") {
+  //     requestIdleCallback(() => {
+  //       if (cardRef.current) {
+  //         // 접근성 속성 추가
+  //         const hasInteractiveContent = cardRef.current.querySelector(
+  //           "button, a, input, select, textarea"
+  //         )
 
-          if (hasInteractiveContent) {
-            cardRef.current.setAttribute("role", "region")
-            cardRef.current.setAttribute("tabindex", "0")
-          }
+  //         if (hasInteractiveContent) {
+  //           cardRef.current.setAttribute("role", "region")
+  //           cardRef.current.setAttribute("tabindex", "0")
+  //         }
 
-          const title = cardRef.current.querySelector('[data-slot="card-title"]')?.textContent
-          if (title) {
-            cardRef.current.setAttribute("aria-label", `카드: ${title}`)
-          }
-        }
-      })
-    }
-  }, [enhanceA11y])
+  //         const title = cardRef.current.querySelector('[data-slot="card-title"]')?.textContent
+  //         if (title) {
+  //           cardRef.current.setAttribute("aria-label", `카드: ${title}`)
+  //         }
+  //       }
+  //     })
+  //   }
+  // }, [enhanceA11y])
 
   return (
     <div
       data-slot="card"
-      data-enhanced={isEnhanced}
+      // data-enhanced={isEnhanced}
       className={cn(
         "bg-card text-card-foreground flex flex-col gap-4 md:gap-6 rounded-xl border py-4 md:py-6 shadow-sm",
-        isEnhanced && "transition-all duration-200",
+        // isEnhanced && "transition-all duration-200",
         className
       )}
       {...props}
