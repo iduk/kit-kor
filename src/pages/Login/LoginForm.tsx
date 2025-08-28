@@ -9,8 +9,16 @@ import { useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 const loginSchema = z.object({
-  email: z.string().email("올바른 이메일 주소를 입력해주세요"),
-  password: z.string().min(6, "비밀번호는 최소 6자 이상이어야 합니다"),
+  email: z
+    .string()
+    .min(5, { message: "이메일을 입력하세요." })
+    .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, { message: "유효한 이메일을 입력하세요." }),
+  password: z
+    .string()
+    .min(8, { message: "비밀번호는 최소 8자 이상이어야 합니다" })
+    .regex(/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[^\da-zA-Z]).{8,}$/, {
+      message: "대/소문자, 숫자, 특수문자 조합 8자리 이상 입력하세요.",
+    }),
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
@@ -22,6 +30,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     register,
     handleSubmit,
     getFieldState,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -34,9 +43,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
   // 에러가 처리되었거나 입력한 경우에만 에러 메시지를 노출
   // (mode: onChange + getFieldState.isDirty 속성 함께 사용)
-  const getFieldError = (field: keyof LoginFormData) => {
-    const state = getFieldState(field)
-    return state.isDirty ? errors[field]?.message : ""
+  const isErrorShow = (field: keyof LoginFormData) => {
+    const { isDirty, error } = getFieldState(field)
+    const fieldValue = watch(field)
+
+    return isDirty && fieldValue && error
   }
 
   const onSubmit = async (data: LoginFormData) => {
@@ -48,6 +59,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       console.error("로그인 실패:", error)
     }
   }
+
+  console.log("getFieldState", getFieldState("password"))
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -93,7 +106,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                     placeholder="m@example.com"
                     {...register("email")}
                   />
-                  {errors.email && <p className="text-xs text-red-500">{getFieldError("email")}</p>}
+                  {isErrorShow("email") && (
+                    <p className="text-xs text-red-500">{errors.email?.message}</p>
+                  )}
                 </div>
                 <div className="grid gap-1">
                   <div className="flex items-center">
@@ -103,8 +118,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                     </a>
                   </div>
                   <Input id="password" type="password" {...register("password")} />
-                  {errors.password && (
-                    <p className="text-xs text-red-500">{getFieldError("password")}</p>
+                  {isErrorShow("password") && (
+                    <p className="text-xs text-red-500">{errors.password?.message || "Error"}</p>
                   )}
                 </div>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
