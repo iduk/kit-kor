@@ -42,25 +42,6 @@ export default tseslint.config([
     rules: {
       // Prettier 포맷팅 규칙
       "prettier/prettier": "warn",
-      // React a11y 접근성 규칙들 (필수 규칙만 적용)
-      "jsx-a11y/anchor-is-valid": "warn",
-      "jsx-a11y/alt-text": "warn",
-      "jsx-a11y/no-static-element-interactions": "warn", // 정적 요소에 대한 상호작용 규칙
-      "jsx-a11y/click-events-have-key-events": "warn", // 클릭 이벤트가 있는 요소에 키보드 이벤트도 필요
-      "jsx-a11y/no-noninteractive-element-interactions": "warn", // 비상호작용 요소에 이벤트 핸들러 사용 금지
-      "jsx-a11y/label-has-associated-control": "warn", // label 요소와 관련된 컨트롤이 있어야 함
-
-      // React 기본 규칙들
-      "react/jsx-uses-react": "off", // React 17+ 자동 JSX 변환
-      "react/react-in-jsx-scope": "off", // React 17+ 자동 JSX 변환
-      "react/jsx-uses-vars": "error",
-      "react/prop-types": "off", // TypeScript 사용시 불필요
-      "react/display-name": "warn",
-      "no-unused-vars": "off", // TODO: 사용하지 않는 변수 임시 허용
-      "@typescript-eslint/no-unused-vars": "off", // TODO: 사용하지 않는 변수 임시 허용
-
-      // React Refresh 규칙 조정
-      "react-refresh/only-export-components": "warn", // 컴포넌트만 export 하도록 권장
     },
   },
 ])
